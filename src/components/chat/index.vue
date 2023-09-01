@@ -2,7 +2,7 @@
 defineOptions({
 	name: "Chat",
 });
-import { onBeforeMount, computed } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import MarkdownIt from "./markdown-it.vue";
 import SettingsInfo from "@/components/settings-info/index.vue";
 import { chatList } from "@/api";
@@ -34,6 +34,19 @@ const getChatList = async () => {
 		// settingsStore.setVal({ key: "modelVersion", val: data[0].name });
 	} finally {
 	}
+};
+
+const isMiniClear = ref(false);
+const handleFocus = () => {
+	isMiniClear.value = true;
+};
+const handleBlur = () => {
+	isMiniClear.value = false;
+};
+
+const keyword = ref("");
+const handleSend = (val) => {
+	console.log(val);
 };
 </script>
 
@@ -123,9 +136,9 @@ const getChatList = async () => {
 					show-word-limit
 					:autosize="{ minRows: 1, maxRows: 8 }"
 					v-model="keyword"
-					@focus="focusHandle"
-					@blur="blurHandle"
-					@keydown.enter.prevent="sendMessage"
+					@focus="handleFocus"
+					@blur="handleBlur"
+					@keydown.enter.prevent="handleSend"
 				></el-input>
 
 				<div class="is-pending" v-show="pending"></div>
