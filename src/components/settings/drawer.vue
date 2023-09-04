@@ -5,12 +5,11 @@ defineOptions({
 import { ref, computed } from "vue";
 import SliderBar from "@/components/slider-bar/index.vue";
 import { useSettingsStore } from "@/store/modules/settings";
-import { ElMessage } from "element-plus";
 
 const settingsStore = useSettingsStore();
 
 const modelsVal = ref(settingsStore.modelVersion);
-const modelsOpts = ref(settingsStore.modelList.map((v) => v.name));
+const modelsOpts = ref(settingsStore.modelList);
 const handleModels = (val) => {
 	settingsStore.setVal({ key: "modelVersion", val });
 };
@@ -33,15 +32,16 @@ const drawerSize = computed(() => {
 				<el-scrollbar ref="scrollContainer" :height="height">
 					<el-form label-position="top">
 						<el-form-item label="选择模型">
-							<el-select
-								style="width: 100%"
-								placeholder="请选择模型"
-								filterable
-								@change="handleModels"
+							<el-cascader
 								v-model="modelsVal"
-							>
-								<el-option v-for="(o, i) in modelsOpts" :key="i" :value="o" />
-							</el-select>
+								:options="modelsOpts"
+								:props="{
+									expandTrigger: 'hover',
+								}"
+								placeholder="请选择模型"
+								style="width: 100%"
+								@change="handleModels"
+							/>
 						</el-form-item>
 					</el-form>
 					<el-form label-position="top">
@@ -68,4 +68,3 @@ const drawerSize = computed(() => {
 <style lang="less" scoped>
 @import "./index.less";
 </style>
-@/store/modules/settings@/store/modules/settings

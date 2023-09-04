@@ -17,7 +17,7 @@ const { height } = useWindowSize();
 const clientHeight = computed(() => `${height.value}px`);
 
 const settingsStore = useSettingsStore();
-// const { chatList } = storeToRefs(settingsStore);
+const { modelLoadingState } = storeToRefs(settingsStore);
 
 onBeforeMount(() => {
 	getChatList();
@@ -29,13 +29,14 @@ const getChatList = async () => {
 		const {
 			data: { data },
 		} = await chatList();
-		console.log(data);
+		console.log("chatListData", data);
 		// settingsStore.setVal({ key: "modelList", val: data });
 		// settingsStore.setVal({ key: "modelVersion", val: data[0].name });
 	} finally {
 	}
 };
 
+const pending = ref(false);
 const isMiniClear = ref(false);
 const handleFocus = () => {
 	isMiniClear.value = true;
@@ -89,7 +90,8 @@ const handleSend = (val) => {
 							</div>
 						</div>
 						<div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: 0.9s">
-							回车发送对话，shift+回车换行。
+							<span v-show="modelLoadingState">模型载入中，请稍后...</span>
+							<span v-show="!modelLoadingState">模型载入完毕，回车发送对话，shift+回车换行</span>
 						</div>
 
 						<template v-for="(item, index) in chatList">

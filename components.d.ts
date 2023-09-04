@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Chat: typeof import('./src/components/chat/index.vue')['default']
     Drawer: typeof import('./src/components/settings/drawer.vue')['default']
     ElAutoResizer: typeof import('element-plus/es')['ElAutoResizer']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElForm: typeof import('element-plus/es')['ElForm']
