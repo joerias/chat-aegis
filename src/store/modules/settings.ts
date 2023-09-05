@@ -11,6 +11,8 @@ export const useSettingsStore = defineStore("settings", {
 		geneVal: 0,
 		// 已创建的聊天记录列表
 		chatList: [],
+		// 当前聊天id
+		chatCurrentId: "",
 	}),
 	actions: {
 		setModelLoadingState(val: boolean) {

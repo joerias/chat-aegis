@@ -3,12 +3,12 @@ defineOptions({
 	name: "Settings",
 });
 import { onBeforeMount, watch } from "vue";
-import { Setting } from "@element-plus/icons-vue";
 import { useModal } from "@/hooks/useModal";
 import drawer from "./drawer.vue";
 import { chatModels, startModel } from "@/api";
 import { useSettingsStore } from "@/store/modules/settings";
 import { storeToRefs } from "pinia";
+import { ElMessage } from "element-plus";
 
 const settingsStore = useSettingsStore();
 const { modelVersion } = storeToRefs(settingsStore);
@@ -78,7 +78,10 @@ const setStartModel = async () => {
 		pointModelId: modelVersion[1],
 	};
 	try {
-		const { data } = await startModel();
+		const {
+			data: { code, msg },
+		} = await startModel();
+		if (code !== 200) ElMessage.error(msg);
 	} finally {
 		settingsStore.setModelLoadingState(false);
 	}
