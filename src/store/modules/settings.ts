@@ -6,6 +6,7 @@ export const useSettingsStore = defineStore("settings", {
 		modelList: [],
 		modelVersion: [] as string[],
 		modelLoadingState: false,
+		modelState: false,
 		createVal: 0,
 		multiVal: 0,
 		geneVal: 0,
@@ -15,11 +16,6 @@ export const useSettingsStore = defineStore("settings", {
 		chatCurrentId: "",
 	}),
 	actions: {
-		setModelLoadingState(val: boolean) {
-			this.$patch((state) => {
-				state.modelLoadingState = val;
-			});
-		},
 		setVal({ key, val }) {
 			this.$patch((state) => {
 				state[key] = val;

@@ -112,7 +112,12 @@ const handleNew = async () => {
 						</div>
 						<div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: 0.9s">
 							<span v-show="modelLoadingState">模型载入中，请稍后...</span>
-							<span v-show="!modelLoadingState">模型载入完毕，回车发送对话，shift+回车换行</span>
+							<span v-show="modelState"> 模型载入完毕， </span>
+							<span v-show="!modelState"> 模型加载失败， </span>
+							<span v-show="!modelLoadingState">
+								回车发送对话。点击上方快捷访问热点问答！
+								<!-- 回车发送对话，shift+回车换行。点击上方快捷访问热点问答！ -->
+							</span>
 						</div>
 
 						<!-- <template v-for="(item, index) in chatList">
