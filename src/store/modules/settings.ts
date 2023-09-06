@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
 
+type TypeSetVal = {
+	[key: string]: any;
+};
+
 export const useSettingsStore = defineStore("settings", {
 	state: () => ({
 		// settings的参数和初始数据
@@ -16,9 +20,11 @@ export const useSettingsStore = defineStore("settings", {
 		chatCurrentId: "",
 	}),
 	actions: {
-		setVal({ key, val }) {
+		setVal(obj: TypeSetVal) {
 			this.$patch((state) => {
-				state[key] = val;
+				for (const [k, v] of Object.entries(obj)) {
+					state[k] = v;
+				}
 			});
 		},
 	},

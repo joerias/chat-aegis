@@ -11,7 +11,7 @@ const settingsStore = useSettingsStore();
 const modelsVal = ref(settingsStore.modelVersion);
 const modelsOpts = ref(settingsStore.modelList);
 const handleModels = (val) => {
-	settingsStore.setVal({ key: "modelVersion", val });
+	settingsStore.setVal({ modelVersion: val });
 };
 
 const sliderCreateVal = ref(0.1);

@@ -21,15 +21,14 @@ const getChatList = async () => {
 			data: { data },
 		} = await chatList();
 		data.forEach((v) => (v.edit = false));
-		settingsStore.setVal({ key: "chatList", val: data });
-		settingsStore.setVal({ key: "chatCurrentId", val: data[0].id });
+		settingsStore.setVal({ chatList: data, chatCurrentId: data[0].id });
 	} finally {
 	}
 };
 
 // 切换聊天记录
 const handleSwitchChat = (idx) => {
-	settingsStore.setVal({ key: "chatCurrentId", val: historyList.value[idx].id });
+	settingsStore.setVal({ chatCurrentId: historyList.value[idx].id });
 };
 
 // 记录label修改

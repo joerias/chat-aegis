@@ -21,7 +21,7 @@ const settingsStore = useSettingsStore();
 const modelValue = defineModel();
 
 const handleChange = (val) => {
-	settingsStore.setVal({ key: storeName, val });
+	settingsStore.setVal({ storeName: val });
 };
 </script>
 

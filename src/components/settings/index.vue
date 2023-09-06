@@ -19,7 +19,7 @@ onBeforeMount(() => {
 
 // 载入模型列表
 const getChatModel = async () => {
-	settingsStore.setVal({ key: "modelLoadingState", val: true });
+	settingsStore.setVal({ modelLoadingState: true });
 	try {
 		const {
 			data: { data },
@@ -61,18 +61,14 @@ const getChatModel = async () => {
 		const modelSelected = [value, childValue];
 
 		// 写入缓存
-		settingsStore.setVal({ key: "modelList", val: modelData });
-		settingsStore.setVal({
-			key: "modelVersion",
-			val: modelSelected,
-		});
+		settingsStore.setVal({ modelList: modelData, modelVersion: modelSelected });
 	} finally {
 	}
 };
 
 // 每次变更模型信息时运行模型
 const setStartModel = async () => {
-	settingsStore.setVal({ key: "modelLoadingState", val: true });
+	settingsStore.setVal({ modelLoadingState: true });
 	const params = {
 		baseModelId: modelVersion[0],
 		pointModelId: modelVersion[1],
@@ -87,9 +83,9 @@ const setStartModel = async () => {
 			// 模型启动失败
 			ElMessage.error(msg);
 		}
-		settingsStore.setVal({ key: "modelState", val: code === 200 });
+		settingsStore.setVal({ modelState: code === 200 });
 	} finally {
-		settingsStore.setVal({ key: "modelLoadingState", val: false });
+		settingsStore.setVal({ modelLoadingState: false });
 	}
 };
 watch(modelVersion, () => {
