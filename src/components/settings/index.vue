@@ -19,7 +19,7 @@ onBeforeMount(() => {
 
 // 载入模型列表
 const getChatModel = async () => {
-	settingsStore.setVal({ modelLoadingState: true });
+	settingsStore.setVal({ key: "modelLoadingState", val: true });
 	try {
 		const {
 			data: { data },
@@ -72,7 +72,7 @@ const getChatModel = async () => {
 
 // 每次变更模型信息时运行模型
 const setStartModel = async () => {
-	settingsStore.setVal({ modelLoadingState: true });
+	settingsStore.setVal({ key: "modelLoadingState", val: true });
 	const params = {
 		baseModelId: modelVersion[0],
 		pointModelId: modelVersion[1],
@@ -87,9 +87,9 @@ const setStartModel = async () => {
 			// 模型启动失败
 			ElMessage.error(msg);
 		}
-		settingsStore.setVal({ modelState: code === 200 });
+		settingsStore.setVal({ key: "modelState", val: code === 200 });
 	} finally {
-		settingsStore.setVal({ modelLoadingState: false });
+		settingsStore.setVal({ key: "modelLoadingState", val: false });
 	}
 };
 watch(modelVersion, () => {

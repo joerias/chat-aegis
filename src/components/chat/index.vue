@@ -10,6 +10,7 @@ import { chatNew, chatMsg } from "@/api";
 import { useSettingsStore } from "@/store/modules/settings";
 import { storeToRefs } from "pinia";
 import { useWindowSize } from "@vueuse/core";
+import { ElMessage } from "element-plus";
 
 function openSetting() {}
 
@@ -17,7 +18,7 @@ const { height } = useWindowSize();
 const clientHeight = computed(() => `${height.value}px`);
 
 const settingsStore = useSettingsStore();
-const { modelLoadingState, chatCurrentId } = storeToRefs(settingsStore);
+const { modelLoadingState, modelState, chatCurrentId } = storeToRefs(settingsStore);
 
 onBeforeMount(() => {});
 
@@ -32,6 +33,10 @@ const handleMsgBox = (type) => {
 // 输入框及交互
 const keyword = ref("");
 const handleSend = async (val) => {
+	if (!modelState.value) {
+		ElMessage.error("加载模型失败，请重新启动模型");
+		return;
+	}
 	const params = {
 		name: "模型名字",
 		value: "模型枚举值",
